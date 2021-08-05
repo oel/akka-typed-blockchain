@@ -99,12 +99,12 @@ class Blockchainer private(context: ActorContext[Blockchainer.Req],
           case Success(r) =>
             r match {
               case MiningResult(block) =>
-                topicBlock ! Topic.Publish (UpdateBlockchain(block))
+                topicBlock ! Topic.Publish(UpdateBlockchain(block))
                 miner ! Miner.DoneMining
-                MiningResult (block)
+                MiningResult(block)
               case _ =>
                 OtherException(s"Unknown mining result $r")
-          }
+            }
           case Failure(e) =>
             context.log.error(s"[Req.Mining] ${this}: ERROR: $e")
             e match {
